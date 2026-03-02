@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.env
+
+# PyTorch model weights
+models/*.pth
+models/*.pt
+*.onnx
+
+# Dataset
+data/
+*.png
+*.jpg
+!docs/**/*.png
+!docs/**/*.jpg
+
+# Weights & Biases
+wandb/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# ROS2 build artifacts
+log/
+install/
+build/
+
+# CARLA
+CarlaUE4/
