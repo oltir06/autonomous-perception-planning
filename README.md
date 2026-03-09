@@ -16,7 +16,7 @@ Each stage runs as a separate ROS2 node, containerized with Docker.
 
 ## Tech Stack
 
-- **Simulation:** CARLA 0.9.15
+- **Simulation:** CARLA 0.9.16
 - **Perception:** PyTorch, U-Net with ResNet-50 encoder
 - **Planning:** Custom A* on occupancy grid, cubic spline smoothing
 - **Control:** PID controller
@@ -36,7 +36,7 @@ Each stage runs as a separate ROS2 node, containerized with Docker.
 - Windows 11, NVIDIA GPU (RTX 2060+)
 - WSL2 with Ubuntu 22.04
 - Docker with NVIDIA Container Toolkit
-- CARLA 0.9.15
+- CARLA 0.9.16
 
 ## Author
 

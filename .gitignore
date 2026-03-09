@@ -9,6 +9,7 @@ build/
 
 # Virtual environments
 .env
+.venv
 
 # PyTorch model weights
 models/*.pth
@@ -48,3 +49,5 @@ build/
 
 # CARLA
 CarlaUE4/
+
+.github/
