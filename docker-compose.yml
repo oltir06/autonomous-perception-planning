@@ -1,0 +1,27 @@
+services:
+  ros2-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile.ros2
+    image: av-pipeline:latest
+    # Host network so localhost:2000 maps to Windows CARLA instance
+    network_mode: host
+    environment:
+      - CARLA_HOST=localhost
+      - CARLA_PORT=2000
+      - ROS_DOMAIN_ID=0
+      - DISPLAY=${DISPLAY:-:0}
+    volumes:
+      - ./src:/workspace/src
+      - ./config:/workspace/config
+      - ./models:/workspace/models
+    # GPU passthrough for PyTorch inference
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    stdin_open: true
+    tty: true

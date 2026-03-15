@@ -1,0 +1,75 @@
+ros2:
+  domain_id: 0
+
+topics:
+  camera_rgb: "/carla/camera/rgb"
+  segmentation: "/perception/segmentation"
+  occupancy_grid: "/processing/occupancy_grid"
+  waypoints: "/planning/waypoints"
+  vehicle_cmd: "/control/vehicle_cmd"
+
+# QoS profiles
+qos:
+  camera:
+    reliability: "best_effort"
+    durability: "volatile"
+    history_depth: 1
+
+  segmentation:
+    reliability: "reliable"
+    durability: "volatile"
+    history_depth: 5
+
+  occupancy_grid:
+    reliability: "reliable"
+    durability: "volatile"
+    history_depth: 5
+
+  waypoints:
+    reliability: "reliable"
+    durability: "volatile"
+    history_depth: 10
+
+  vehicle_cmd:
+    reliability: "reliable"
+    durability: "volatile"
+    history_depth: 1
+
+# Node-specific parameters
+nodes:
+  carla_bridge:
+    publish_rate_hz: 20
+
+  perception:
+    publish_rate_hz: 20
+    model_path: "models/segmentation.pt"
+
+  processing:
+    publish_rate_hz: 20
+    # Occupancy grid dimensions (downsampled for A* performance)
+    grid_width: 128
+    grid_height: 64
+    resolution_m_per_cell: 0.5
+
+  planning:
+    publish_rate_hz: 10
+    # A* search window limit
+    max_search_nodes: 10000
+    waypoint_lookahead_m: 20.0
+    spline_smoothing_factor: 0.1
+
+  control:
+    publish_rate_hz: 20
+    # PID gains (tune: P-only first, then D, then I)
+    steering_pid:
+      kp: 0.5
+      ki: 0.0
+      kd: 0.1
+    throttle_pid:
+      kp: 0.3
+      ki: 0.01
+      kd: 0.05
+    target_speed_kmh: 30.0
+    max_steering: 1.0
+    max_throttle: 0.75
+    max_brake: 1.0

@@ -1,0 +1,61 @@
+model:
+  # U-Net with ResNet-50 encoder
+  architecture: "unet_resnet50"
+  encoder: "resnet50"
+  encoder_weights: "imagenet"
+  num_classes: 7
+  in_channels: 3
+
+  # 7 segmentation classes mapped from CARLA's 23:
+  # 0=Road, 1=Sidewalk, 2=Vehicle, 3=Pedestrian, 4=Building, 5=Vegetation, 6=Other
+  class_names:
+    - Road
+    - Sidewalk
+    - Vehicle
+    - Pedestrian
+    - Building
+    - Vegetation
+    - Other
+
+  # Class weights to address imbalance (Pedestrian ~2% of pixels → weight 10+)
+  class_weights: [1.0, 1.5, 3.0, 10.0, 1.0, 1.0, 0.5]
+
+training:
+  batch_size: 8
+  num_epochs: 50
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  optimizer: "adam"
+  scheduler: "cosine"
+  warmup_epochs: 5
+
+  # FP16 training to reduce VRAM usage (RTX 2070 8GB)
+  mixed_precision: true
+
+  # Oversample pedestrian frames to address class imbalance
+  oversample_pedestrian: true
+  oversample_factor: 5
+
+  # Data augmentation
+  augmentation:
+    horizontal_flip: true
+    brightness_jitter: 0.2
+    contrast_jitter: 0.2
+    random_crop: false
+
+  # Validation split
+  val_split: 0.15
+  test_split: 0.05
+
+  # Checkpointing
+  save_best: true
+  checkpoint_dir: "models/checkpoints"
+
+  # Logging
+  use_wandb: true
+  project_name: "av-segmentation"
+
+inference:
+  # Use FP16 when running alongside CARLA to save VRAM
+  mixed_precision: true
+  target_latency_ms: 100

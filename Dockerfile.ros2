@@ -1,0 +1,36 @@
+FROM ros:humble-ros-base-jammy
+
+# System dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-opencv \
+    ros-humble-cv-bridge \
+    ros-humble-image-transport \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PyTorch with CUDA 12.1 support (compatible with CUDA 12.x drivers)
+RUN pip3 install --no-cache-dir \
+    "torch>=2.2.0" \
+    "torchvision>=0.17.0" \
+    --index-url https://download.pytorch.org/whl/cu121
+
+# Copy and install remaining Python dependencies (rclpy ships with ROS2, not pip)
+COPY requirements.txt /tmp/requirements.txt
+RUN grep -v '^torch\|^torchvision' /tmp/requirements.txt > /tmp/requirements-nontorch.txt \
+    && pip3 install --no-cache-dir -r /tmp/requirements-nontorch.txt
+
+WORKDIR /workspace
+
+# ROS2 environment
+ENV ROS_DOMAIN_ID=0
+ENV PYTHONPATH=/workspace/src
+
+# CARLA connection defaults (overridable via docker-compose env)
+ENV CARLA_HOST=localhost
+ENV CARLA_PORT=2000
+
+# Entrypoint sources ROS2 setup
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bash"]

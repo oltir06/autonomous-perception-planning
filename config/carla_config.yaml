@@ -1,0 +1,28 @@
+carla:
+  host: "localhost"
+  port: 2000
+  timeout: 10.0  # seconds
+
+  # Synchronous mode keeps RGB and segmentation frames aligned
+  synchronous_mode: true
+  fixed_delta_seconds: 0.05  # 20 Hz
+
+  camera:
+    width: 640
+    height: 480
+    fov: 90.0
+    tick_rate: 20  # Hz
+    sensor_tick: 0.05
+
+  # Spawn point index (null = random)
+  spawn_point_index: 0
+
+  # Town/map to load
+  map: "Town01"
+
+  # Weather preset
+  weather: "ClearNoon"
+
+  # Traffic
+  num_vehicles: 20
+  num_pedestrians: 10
