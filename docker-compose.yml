@@ -15,6 +15,7 @@ services:
       - ./src:/workspace/src
       - ./config:/workspace/config
       - ./models:/workspace/models
+      - ./data:/workspace/data
     # GPU passthrough for PyTorch inference
     deploy:
       resources:

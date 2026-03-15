@@ -26,3 +26,63 @@ carla:
   # Traffic
   num_vehicles: 20
   num_pedestrians: 10
+
+data_collection:
+  output_dir: "data/raw"
+
+  camera_position:
+    x: 1.5
+    y: 0.0
+    z: 2.4
+
+  save_metadata: true
+  warmup_ticks: 30
+
+  scenarios:
+    - map: "Town01"
+      weather: "ClearNoon"
+      num_vehicles: 30
+      num_pedestrians: 15
+      frames: 1000
+
+    - map: "Town01"
+      weather: "WetCloudyNoon"
+      num_vehicles: 30
+      num_pedestrians: 15
+      frames: 1000
+
+    - map: "Town02"
+      weather: "ClearNoon"
+      num_vehicles: 20
+      num_pedestrians: 10
+      frames: 1000
+
+    - map: "Town02"
+      weather: "SoftRainNoon"
+      num_vehicles: 20
+      num_pedestrians: 10
+      frames: 1000
+
+    - map: "Town03"
+      weather: "ClearSunset"
+      num_vehicles: 40
+      num_pedestrians: 20
+      frames: 1000
+
+    - map: "Town03"
+      weather: "HardRainSunset"
+      num_vehicles: 40
+      num_pedestrians: 20
+      frames: 1000
+
+    - map: "Town04"
+      weather: "ClearNoon"
+      num_vehicles: 50
+      num_pedestrians: 25
+      frames: 1000
+
+    - map: "Town05"
+      weather: "SoftRainNoon"
+      num_vehicles: 50
+      num_pedestrians: 25
+      frames: 1000
